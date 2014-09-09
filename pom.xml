@@ -1,0 +1,34 @@
+<project>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>com.palvair.tuto.java.ee</groupId>
+   <version>1.0</version>
+   <artifactId>root</artifactId>
+   <packaging>pom</packaging>
+   <name>tutoJavaEE</name>
+   <modules>
+      <module>web</module>
+      <module>ejbs</module>
+      <module>ear</module>
+   </modules>
+   <build>
+      <pluginManagement>
+      </pluginManagement>
+   </build>
+   <dependencyManagement>
+      <dependencies>
+         <dependency>
+            <groupId>com.palvair.tuto.java.ee</groupId>
+            <artifactId>ejbs</artifactId>
+            <version>1.0</version>
+            <type>ejb</type>
+         </dependency>
+      </dependencies>
+   </dependencyManagement>
+   <distributionManagement>
+      <site>
+         <id>site</id>
+         <name>project website</name>
+         <url>scp://local.company.com/websites/project.company.com/</url>
+      </site>
+   </distributionManagement>
+</project>
