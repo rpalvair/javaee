@@ -1,4 +1,4 @@
-package com.palvair.tuto.java.ee;
+package com.palvair.tuto.java.ee.listener;
 
 
 import lombok.extern.log4j.Log4j;

@@ -1,9 +1,12 @@
 package com.palvair.tuto.java.ee;
 
+import com.palvair.tuto.java.ee.dao.J2eeEntityLocal;
+import com.palvair.tuto.java.ee.entity.J2eeEntity;
 import lombok.extern.log4j.Log4j;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.jms.*;
@@ -36,6 +39,9 @@ public class J2EEServlet extends HttpServlet {
     @JMSConnectionFactory("jms/myQueueFactory")
     private JMSContext jmsContext;
 
+    @EJB
+    private J2eeEntityLocal j2eeEntityLocal;
+
     @PostConstruct
     public void setUp() {
 
@@ -52,6 +58,12 @@ public class J2EEServlet extends HttpServlet {
             ex.printStackTrace();
             throw new ServletException(ex.getMessage());
         }
+
+        log.info("call create");
+        J2eeEntity j2eeEntity = new J2eeEntity();
+        j2eeEntity.setName("test");
+        j2eeEntityLocal.create(j2eeEntity);
+        log.info("creation done");
 
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
