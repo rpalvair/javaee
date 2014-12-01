@@ -1,15 +1,17 @@
-<project>
-   <modelVersion>4.0.0</modelVersion>
-   <groupId>com.palvair.tuto.java.ee</groupId>
-   <artifactId>ejbs</artifactId>
-   <packaging>ejb</packaging>
-   <version>1.0</version>
-   <name>enterprise java beans</name>
-   <parent>
-      <groupId>com.palvair.tuto.java.ee</groupId>
-      <artifactId>root</artifactId>
-      <version>1.0</version>
-   </parent>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>rootJavaEE</artifactId>
+        <groupId>com.palvair.tuto.java.ee</groupId>
+        <version>1.0</version>
+    </parent>
+
+    <groupId>com.palvair.tuto.java.ee</groupId>
+    <artifactId>ejb</artifactId>
+    <version>1.0</version>
+    <packaging>ejb</packaging>
+    <name>ejb</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -34,6 +36,7 @@
             <artifactId>lombok</artifactId>
             <version>1.12.6</version>
             <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -45,19 +48,23 @@
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.30</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -107,4 +114,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

@@ -6,8 +6,8 @@
    <packaging>pom</packaging>
    <name>tutoJavaEE</name>
    <modules>
+       <module>ear</module>
       <module>web</module>
       <module>ejbs</module>
-      <module>ear</module>
    </modules>
 </project>
