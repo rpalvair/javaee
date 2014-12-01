@@ -35,9 +35,9 @@ public class J2EEServlet extends HttpServlet {
     @Resource(mappedName = "jms/otherQueue")
     private Queue otherQueue;
 
-    //@Inject
-    //@JMSConnectionFactory("jms/myQueueFactory")
-    //private JMSContext jmsContext;
+    @Inject
+    @JMSConnectionFactory("jms/myQueueFactory")
+    private JMSContext jmsContext;
 
     @EJB
     private J2eeEntityLocal j2eeEntityLocal;
@@ -53,7 +53,7 @@ public class J2EEServlet extends HttpServlet {
         try {
             sendMessage("Hello QueueListener", queue);
             sendMessage("Hello OtherListener", otherQueue);
-            //sendMessageWithJmsContext("Hello QueueListener(sended by JMSContext)", queue);
+            sendMessageWithJmsContext("Hello QueueListener(sended by JMSContext)", queue);
         } catch (JMSException ex) {
             ex.printStackTrace();
             throw new ServletException(ex.getMessage());
@@ -89,11 +89,11 @@ public class J2EEServlet extends HttpServlet {
         log.info("message sent");
     }
 
-    /*private void sendMessageWithJmsContext(String body, Queue queue) {
+    private void sendMessageWithJmsContext(String body, Queue queue) {
         final JMSProducer jmsProducer = jmsContext.createProducer();
         final TextMessage textMessage = jmsContext.createTextMessage(body);
         jmsProducer.send(queue, textMessage);
-    }*/
+    }
 
     /**
      * Handles the HTTP <code>GET</code> method.
