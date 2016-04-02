@@ -13,9 +13,9 @@
             <property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
 
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/tutoj2ee" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/javaee" />
             <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="admin972" />
+            <property name="javax.persistence.jdbc.password" value="admin" />
         </properties>
 
     </persistence-unit>
