@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Created by widdy on 09/09/14.
@@ -39,16 +38,7 @@ public class JavaEEServlet extends HttpServlet {
         j2eeEntityLocal.create(j2eeEntity);
         log.info("creation done");
 
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>J2EE Servlet</title>");
-            out.println("<body>");
-            out.println("<h1>Hello</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     /**
