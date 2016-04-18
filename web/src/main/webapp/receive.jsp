@@ -12,7 +12,8 @@
                 <c:forEach items="${messages}" var="i">
                                    <tr>
                                         <td><b>Message received :</b></td>
-                                        <td><c:out value="${i}"/></td>
+                                        <td><c:out value="${i.content}"/></td>
+                                        <td><c:out value="${i.type}"/></td>
                                      </tr>
                                 </c:forEach>
             </table>

@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -53,7 +54,7 @@ public class JMSSenderServlet extends HttpServlet {
 	@Resource(mappedName = "topicFactory")
 	private TopicConnectionFactory topicFactory;
 
-	private final List<String> messagesSend = new ArrayList<>();
+	private final List<MessageWrapper> messagesSend = new ArrayList<>();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -73,7 +74,7 @@ public class JMSSenderServlet extends HttpServlet {
 				messagesSend.add(sendMessageWithJmsContext("I'm the second message", otherQueue));
 			}
 			// always log
-			sendTopicMessage("message sent", topicLog);
+			messagesSend.add(sendTopicMessage("message sent", topicLog));
 
 		} catch (JMSException e) {
 			log.error(e);
@@ -83,7 +84,7 @@ public class JMSSenderServlet extends HttpServlet {
 		request.getRequestDispatcher("receive.jsp").forward(request, response);
 	}
 
-	private void sendTopicMessage(final String content, final Topic topic) throws JMSException {
+	private MessageWrapper sendTopicMessage(final String content, final Topic topic) throws JMSException {
 		final Connection connection = topicFactory.createConnection();
 		final Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		final MessageProducer messageProducer = session.createProducer(topic);
@@ -92,9 +93,10 @@ public class JMSSenderServlet extends HttpServlet {
 		messageProducer.send(message);
 		messageProducer.close();
 		connection.close();
+		return new MessageWrapper(content, "topic");
 	}
 
-	private String sendMessage(String body, Queue queue) throws JMSException {
+	private MessageWrapper sendMessage(String body, Queue queue) throws JMSException {
 		final Connection connection = queueFactory.createConnection();
 		final Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		final MessageProducer messageProducer = session.createProducer(queue);
@@ -103,14 +105,27 @@ public class JMSSenderServlet extends HttpServlet {
 		messageProducer.send(message);
 		messageProducer.close();
 		connection.close();
-		return body;
+		return new MessageWrapper(body, "queue");
 	}
 
-	private String sendMessageWithJmsContext(String body, Queue queue) {
+	private MessageWrapper sendMessageWithJmsContext(String body, Queue queue) {
 		final JMSProducer jmsProducer = queueContext.createProducer();
 		final TextMessage textMessage = queueContext.createTextMessage(body);
 		jmsProducer.send(queue, textMessage);
-		return body;
+		return new MessageWrapper(body, "queue");
+	}
+
+	public static class MessageWrapper {
+		@Getter
+		private final String content;
+
+		@Getter
+		private final String type;
+
+		public MessageWrapper(final String content, final String type) {
+			this.content = content;
+			this.type = type;
+		}
 	}
 
 }
